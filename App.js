@@ -8,10 +8,11 @@ import SignupScreen from './src/screens/SignupScreen';
 import TrackCreateScreen from './src/screens/TrackCreateScreen';
 import TrackDetailsScreen from './src/screens/TrackDetailsScreen';
 import TrackListScreen from './src/screens/TrackListScreen';
+import { Provider as AuthProvider } from './src/context/AuthContext';
 
 const Stack = createStackNavigator();
 const BottomTab = createBottomTabNavigator();
-const trackListFlow = () => {
+const TrackListFlow = () => {
   return (
     <Stack.Navigator>
       <Stack.Screen name="TrackList" component={TrackListScreen} />
@@ -22,25 +23,30 @@ const trackListFlow = () => {
 const LoginFlow = () => {
   return (
     <Stack.Navigator>
-      <Stack.Screen name="Signup" component={SignupScreen} />
+      <Stack.Screen
+        name="Signup"
+        component={SignupScreen}
+        options={{ headerShown: false }} />
       <Stack.Screen name="Signin" component={SigninScreen} />
       <Stack.Screen name="MainFlow" component={MainFlow} />
     </Stack.Navigator>
   );
-}
+};
 const MainFlow = () => {
   return (
     <BottomTab.Navigator>
-      <BottomTab.Screen name="TrackList" component={trackListFlow} />
+      <BottomTab.Screen name="TrackList" component={TrackListFlow} />
       <BottomTab.Screen name="TrackCreate" component={TrackCreateScreen} />
       <BottomTab.Screen name="Account" component={AccountScreen} />
     </BottomTab.Navigator>
   );
-}
+};
 export default function App() {
   return (
-    <NavigationContainer>
-      <LoginFlow/>
-    </NavigationContainer>
+    <AuthProvider>
+      <NavigationContainer>
+        <LoginFlow/>
+      </NavigationContainer>
+    </AuthProvider>
   );
-}
+};
