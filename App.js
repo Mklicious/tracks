@@ -9,6 +9,7 @@ import TrackCreateScreen from './src/screens/TrackCreateScreen';
 import TrackDetailsScreen from './src/screens/TrackDetailsScreen';
 import TrackListScreen from './src/screens/TrackListScreen';
 import { Provider as AuthProvider } from './src/context/AuthContext';
+import { setNavigator } from './src/navigationRef';
 
 const Stack = createStackNavigator();
 const BottomTab = createBottomTabNavigator();
@@ -26,8 +27,13 @@ const LoginFlow = () => {
       <Stack.Screen
         name="Signup"
         component={SignupScreen}
-        options={{ headerShown: false }} />
-      <Stack.Screen name="Signin" component={SigninScreen} />
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="Signin"
+        component={SigninScreen}
+        options={{ headerShown: false }}
+      />
       <Stack.Screen name="MainFlow" component={MainFlow} />
     </Stack.Navigator>
   );
@@ -44,7 +50,7 @@ const MainFlow = () => {
 export default function App() {
   return (
     <AuthProvider>
-      <NavigationContainer>
+      <NavigationContainer ref={(navigator) => { setNavigator(navigator) }}>
         <LoginFlow/>
       </NavigationContainer>
     </AuthProvider>
