@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -8,7 +8,7 @@ import SignupScreen from './src/screens/SignupScreen';
 import TrackCreateScreen from './src/screens/TrackCreateScreen';
 import TrackDetailsScreen from './src/screens/TrackDetailsScreen';
 import TrackListScreen from './src/screens/TrackListScreen';
-import { Provider as AuthProvider } from './src/context/AuthContext';
+import { Provider as AuthProvider, Context as AuthContext } from './src/context/AuthContext';
 import { setNavigator } from './src/navigationRef';
 
 const Stack = createStackNavigator();
@@ -34,25 +34,33 @@ const LoginFlow = () => {
         component={SigninScreen}
         options={{ headerShown: false }}
       />
-      <Stack.Screen name="MainFlow" component={MainFlow} />
     </Stack.Navigator>
   );
 };
 const MainFlow = () => {
   return (
     <BottomTab.Navigator>
-      <BottomTab.Screen name="TrackList" component={TrackListFlow} />
+      <BottomTab.Screen name="TrackList" component={TrackListFlow}  />
       <BottomTab.Screen name="TrackCreate" component={TrackCreateScreen} />
       <BottomTab.Screen name="Account" component={AccountScreen} />
     </BottomTab.Navigator>
   );
 };
-export default function App() {
+
+const App = () => {
+  const { state } = useContext(AuthContext);
+
+  return(
+    <NavigationContainer ref={(navigator) => { setNavigator(navigator) }}>
+      {state.token === null ? <LoginFlow/> : <MainFlow/>}
+    </NavigationContainer>
+  );
+};
+
+export default () => {
   return (
     <AuthProvider>
-      <NavigationContainer ref={(navigator) => { setNavigator(navigator) }}>
-        <LoginFlow/>
-      </NavigationContainer>
+      <App/>
     </AuthProvider>
   );
 };
