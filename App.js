@@ -10,6 +10,7 @@ import TrackDetailsScreen from './src/screens/TrackDetailsScreen';
 import TrackListScreen from './src/screens/TrackListScreen';
 import { Provider as AuthProvider, Context as AuthContext } from './src/context/AuthContext';
 import { setNavigator } from './src/navigationRef';
+import LoadingScreen from './src/screens/LoadingScreen';
 
 const Stack = createStackNavigator();
 const BottomTab = createBottomTabNavigator();
@@ -49,7 +50,9 @@ const MainFlow = () => {
 
 const App = () => {
   const { state } = useContext(AuthContext);
-
+  if (state.isLoading) {
+    return <LoadingScreen/>
+  }
   return(
     <NavigationContainer ref={(navigator) => { setNavigator(navigator) }}>
       {state.token === null ? <LoginFlow/> : <MainFlow/>}
