@@ -5,11 +5,15 @@ import  AsyncStorage  from '@react-native-community/async-storage';
 const authReducer = (state, action) => {
     switch(action.type) {
         case 'add_error':
-            return {...state, errorMessage: action.payload };
+            return {isLoading: false, ...state, errorMessage: action.payload };
         case 'signin':
             return { errorMessage: '', token: action.payload };
         case 'clear_error_message':
-            return {...state, errorMessage: ''};
+            return {...state, errorMessage: '' };
+        case 'no_token':
+            return {...state, isLoading: false };
+        case 'signout':
+            return {errorMessage: '', token: null };
         default:
             return state;
     }
@@ -45,18 +49,26 @@ const signin = (dispatch) => async ({ email, password }) => {
     }
 };
 
-const signout = (dispatch) => {
-    return () => {
-        // se déconnecter
-    };
+const signout = (dispatch) => async () => {
+    await AsyncStorage.removeItem('token');
+    dispatch({ type: 'signout', payload: null });
 };
 
 const clearErrorMessage = (dispatch) => () => {
     dispatch({ type: 'clear_error_message' });
 }
 
+const tryLocalSignin = (dispatch) => async () => {
+    const token = await AsyncStorage.getItem('token');
+    if (token) {
+        dispatch({ type: 'signin' });
+    } else {
+        dispatch({ type: 'no_token' });
+    }
+} 
+
 export const { Provider, Context } = createDataContext(
     authReducer,
-    { signup, signin, signout, clearErrorMessage},
-    { token: null, errorMessage: '' }
+    { signup, signin, signout, clearErrorMessage, tryLocalSignin },
+    { token: null, errorMessage: '', isLoading: true }
 )
