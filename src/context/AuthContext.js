@@ -19,7 +19,7 @@ const authReducer = (state, action) => {
     }
 };
 
-const signup = (dispatch) => async ({ email, password }) => {
+const signup = dispatch => async ({ email, password }) => {
     // essaye de s'inscrire
     // gère le succès en mettant à jour le state
     // gère l'échec en montrant un message
@@ -35,7 +35,7 @@ const signup = (dispatch) => async ({ email, password }) => {
 
 };
 
-const signin = (dispatch) => async ({ email, password }) => {
+const signin = dispatch => async ({ email, password }) => {
     // essaye de se connecter
     // gère le succès en mettant à jour le state
     // gère l'échec en montrant un message
@@ -49,16 +49,16 @@ const signin = (dispatch) => async ({ email, password }) => {
     }
 };
 
-const signout = (dispatch) => async () => {
+const signout = dispatch => async () => {
     await AsyncStorage.removeItem('token');
     dispatch({ type: 'signout', payload: null });
 };
 
-const clearErrorMessage = (dispatch) => () => {
+const clearErrorMessage = dispatch => () => {
     dispatch({ type: 'clear_error_message' });
 }
 
-const tryLocalSignin = (dispatch) => async () => {
+const tryLocalSignin = dispatch => async () => {
     const token = await AsyncStorage.getItem('token');
     if (token) {
         dispatch({ type: 'signin' });
