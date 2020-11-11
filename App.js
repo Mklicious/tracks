@@ -9,7 +9,7 @@ import TrackCreateScreen from './src/screens/TrackCreateScreen';
 import TrackDetailsScreen from './src/screens/TrackDetailsScreen';
 import TrackListScreen from './src/screens/TrackListScreen';
 import { Provider as AuthProvider, Context as AuthContext } from './src/context/AuthContext';
-import { Provider as LocationProvider, Context as LocationContext } from './src/context/LocationContext';
+import { Provider as LocationProvider } from './src/context/LocationContext';
 import { setNavigator } from './src/navigationRef';
 import LoadingScreen from './src/screens/LoadingScreen';
 
@@ -54,6 +54,7 @@ const App = () => {
   if (state.isLoading) {
     return <LoadingScreen/>
   }
+
   return(
     <NavigationContainer ref={(navigator) => { setNavigator(navigator) }}>
       {state.token === null ? <LoginFlow/> : <MainFlow/>}

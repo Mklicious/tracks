@@ -3,22 +3,24 @@ import trackerApi from '../api/tracker';
 import AsyncStorage from '@react-native-community/async-storage';
 
 const locationReducer = (state, action) => {
-    switch (action.type) {    
+    switch (action.type) { 
+        case 'add_current_location':
+            return {...state, currentLocation: action.payload }
         default:
             return state;
     }
 };
 
-const startRecording = dispatch => {
+const startRecording = dispatch => () => {
     
 };
 
-const stopRecording = dispatch => {
+const stopRecording = dispatch => () =>  {
     
 };
 
-const addLocation = dispatch => {
-
+const addLocation = dispatch => (location) => {
+    dispatch({type: 'add_current_location', payload: location })
 };
 
 export const { Provider, Context } = createDataContext(
