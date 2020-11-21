@@ -44,6 +44,6 @@ export default (shouldTrack, callback) => {
         };
     }, [shouldTrack, callback]);
 
-    //convention: retourner un array
+    //convention: dans un hook, retourner un array
     return [error];
 };
