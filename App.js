@@ -10,6 +10,7 @@ import TrackDetailsScreen from './src/screens/TrackDetailsScreen';
 import TrackListScreen from './src/screens/TrackListScreen';
 import { Provider as AuthProvider, Context as AuthContext } from './src/context/AuthContext';
 import { Provider as LocationProvider } from './src/context/LocationContext';
+import { Provider as TrackProvider } from './src/context/TrackContext';
 import { setNavigator } from './src/navigationRef';
 import LoadingScreen from './src/screens/LoadingScreen';
 
@@ -64,10 +65,12 @@ const App = () => {
 
 export default () => {
   return (
-    <LocationProvider>
-      <AuthProvider>
-        <App/>
-      </AuthProvider>
-    </LocationProvider>
+    <TrackProvider>
+      <LocationProvider>
+        <AuthProvider>
+          <App/>
+        </AuthProvider>
+      </LocationProvider>
+    </TrackProvider>
   );
 };
