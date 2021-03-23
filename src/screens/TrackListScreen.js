@@ -10,7 +10,7 @@ const TrackListScreen = ({ navigation }) => {
 
         return listener;
     }, [navigation]);
-    console.log(state);
+
     return (
         <>
             <Text style={{ fontSize: 48 }}>track list screen</Text>
@@ -19,7 +19,8 @@ const TrackListScreen = ({ navigation }) => {
                 keyExtractor={(item) => item._id}
                 renderItem={({ item }) => {
                 return (
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={() =>
+                        navigation.navigate('TrackDetails',  {_id: item._id })}>
                     <ListItem>
                         <ListItem.Content>
                         <ListItem.Title>{item.name}</ListItem.Title>
