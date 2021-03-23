@@ -13,7 +13,6 @@ const TrackListScreen = ({ navigation }) => {
 
     return (
         <>
-            <Text style={{ fontSize: 48 }}>track list screen</Text>
             <FlatList
                 data={state}
                 keyExtractor={(item) => item._id}

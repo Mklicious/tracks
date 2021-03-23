@@ -2,7 +2,7 @@ import axios from 'axios';
 import  AsyncStorage  from '@react-native-community/async-storage';
 
 const instance = axios.create({
-    baseURL: 'http://035fff45091d.ngrok.io'
+    baseURL: 'http://aa0bc849260a.ngrok.io'
 });
 
 //le token sera automatiquement renseigné à chaque requete.

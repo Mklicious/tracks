@@ -13,14 +13,23 @@ import { Provider as LocationProvider } from './src/context/LocationContext';
 import { Provider as TrackProvider } from './src/context/TrackContext';
 import { setNavigator } from './src/navigationRef';
 import LoadingScreen from './src/screens/LoadingScreen';
+import { FontAwesome } from '@expo/vector-icons';
 
 const Stack = createStackNavigator();
 const BottomTab = createBottomTabNavigator();
 const TrackListFlow = () => {
   return (
     <Stack.Navigator>
-      <Stack.Screen name="TrackList" component={TrackListScreen} />
-      <Stack.Screen name="TrackDetails" component={TrackDetailsScreen} />
+      <Stack.Screen
+        name="TrackList"
+        component={TrackListScreen}
+        options={{title: 'Tracks'}}
+      />
+      <Stack.Screen
+        name="TrackDetails"
+        component={TrackDetailsScreen}
+        options={{title: 'Track details'}}
+      />
     </Stack.Navigator>
   );
 };
@@ -40,12 +49,58 @@ const LoginFlow = () => {
     </Stack.Navigator>
   );
 };
+ 
+const TrackCreateFlow = () => {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        name="TrackCreate"
+        component={TrackCreateScreen}
+        options={{ title: 'Add a track' }}
+      />
+    </Stack.Navigator>
+  );
+}
+
+const AccountFlow = () => {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        name="Account"
+        component={AccountScreen}
+        options={{ title: 'Account' }}
+      />
+    </Stack.Navigator>
+  );
+}
+
 const MainFlow = () => {
   return (
     <BottomTab.Navigator>
-      <BottomTab.Screen name="TrackList" component={TrackListFlow}  />
-      <BottomTab.Screen name="TrackCreate" component={TrackCreateScreen} />
-      <BottomTab.Screen name="Account" component={AccountScreen} />
+      <BottomTab.Screen
+        name="TrackList"
+        component={TrackListFlow}
+        options={{
+          title: 'Tracks',
+          tabBarIcon: () => <FontAwesome name="list" size={20}/>
+        }}
+      />
+      <BottomTab.Screen
+        name="TrackCreate"
+        component={TrackCreateFlow}
+        options={{
+          title: 'Add Track',
+          tabBarIcon: () => <FontAwesome name="plus" size={20}/>
+        }}
+      />
+      <BottomTab.Screen
+        name="Account"
+        component={AccountFlow}
+        options={{
+          title: 'Account',
+          tabBarIcon: () => <FontAwesome name="gear" size={20}/>
+        }}
+      />
     </BottomTab.Navigator>
   );
 };

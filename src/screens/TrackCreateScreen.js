@@ -1,4 +1,4 @@
-import '../_mockLocation';
+// import '../_mockLocation';
 import React, { useContext, useCallback } from 'react';
 import { StyleSheet } from 'react-native';
 import { Text } from 'react-native-elements';
@@ -19,7 +19,6 @@ const TrackCreateScreen = ({ isFocused }) => {
     const [error] = useLocation(isFocused || recording, callback);
     return (
         <SafeAreaView forceInset={{ top: 'always' }}>
-            <Text h2>Create a Track</Text>
             <Map/>
             <TrackForm/>
             {error ? <Text>Enable location services</Text> : null}
